@@ -1,0 +1,83 @@
+{
+  "description": "Ground truth for the synthetic bacterial spot dataset.",
+  "season_model": {
+    "form": "severity = ceiling * (1 - exp(-k * latent)); latent = intercept + sum(beta*(x - center)) + cultivar + transplant + site_RE + year_RE + noise",
+    "centers": {
+      "wetness_hours": 300,
+      "mean_temp_c": 24.5,
+      "rain_mm": 330,
+      "inoculum_log": 3.1
+    },
+    "coefficients": {
+      "intercept": 45.0,
+      "wetness_hours": 0.075,
+      "mean_temp_c": 2.2,
+      "max_temp_c": 0.0,
+      "rain_mm": 0.025,
+      "inoculum_log": 4.5,
+      "soil_ph": 0.0,
+      "dist_to_road_m": 0.0,
+      "site_sd": 5.0,
+      "year_sd": 7.0,
+      "resid_sd": 9.0,
+      "squash_midpoint": 45.0,
+      "squash_k": 0.09
+    },
+    "cultivar_effect": {
+      "FL-8000": 0.0,
+      "Sanibel": -4.5,
+      "Tygress": -9.0,
+      "HM-1823": 3.0,
+      "Sebring": -2.0
+    },
+    "transplant_effect": {
+      "certified": 0.0,
+      "on-farm": 5.0,
+      "regional": 2.0
+    },
+    "site_random_effects": {
+      "S01": -0.479,
+      "S02": 1.181,
+      "S03": 2.376,
+      "S04": -5.285,
+      "S05": -1.007,
+      "S06": -1.235,
+      "S07": -2.846,
+      "S08": 0.936
+    },
+    "year_random_effects": {
+      "2016": -0.917,
+      "2017": 3.686,
+      "2018": 7.869,
+      "2019": -0.508,
+      "2020": -5.344,
+      "2021": 1.653,
+      "2022": -2.188,
+      "2023": -2.523,
+      "2024": 5.48,
+      "2025": 1.126
+    },
+    "decoys": [
+      "max_temp_c (r~0.93 with mean_temp_c, zero causal effect)",
+      "soil_ph (noise)",
+      "dist_to_road_m (noise)"
+    ]
+  },
+  "weekly_model": {
+    "intercept": -4.1,
+    "wet_hours_week": 0.062,
+    "night_temp_c": 0.23,
+    "rain_mm_week": 0.011,
+    "inoculum_log": 0.78,
+    "days_after_transplant": 0.021,
+    "plot_re_sd": 0.9,
+    "cultivar": {
+      "FL-8000": 0.0,
+      "Sanibel": -0.55,
+      "Tygress": -1.15,
+      "HM-1823": 0.4,
+      "Sebring": -0.3
+    }
+  },
+  "weekly_note": "A plot-level random effect (sd 0.90 on the logit) is constant within each plot. inoculum_log is also constant within a plot, so it acts as a plot fingerprint: a flexible model can memorize plot susceptibility through it. That is why a random row-wise split leaks and a leave-one-plot-out split does not."
+}
